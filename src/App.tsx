@@ -1,7 +1,8 @@
 import React from "react";
-import { generateCaptchaText } from "./utils/generateCaptchaTest";
-import "./App.css";
 import TextCanvas from "./components/TextCanvas";
+import { generateCaptchaText } from "./utils/generateCaptchaTest";
+import { FormControl, Input, Label } from "./components/FormControl";
+import "./App.scss";
 
 function App() {
   const [captchaText, setCaptchaText] = React.useState(generateCaptchaText());
@@ -24,14 +25,18 @@ function App() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="form">
+        <FormControl overlay>
+          <Label>Name</Label>
+          <Input
+            InputSize="large"
+            type="text"
+            // value={userInput}
+            onChange={(event) => setUserInput(event.target.value)}
+          />
+        </FormControl>
         <TextCanvas CanvasText={captchaText} />
-        <input
-          type="text"
-          value={userInput}
-          onChange={(event) => setUserInput(event.target.value)}
-        />
         <button type="submit">Submit</button>
 
         {isHuman === true && <p>Thank you for verifying that you are human!</p>}
@@ -40,7 +45,7 @@ function App() {
         )}
       </form>
       <button onClick={ResetCaptcha}>Reset</button>
-    </>
+    </div>
   );
 }
 

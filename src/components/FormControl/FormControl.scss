@@ -1,0 +1,77 @@
+.form-control {
+  position: relative;
+  display: block;
+  border-radius: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+  background: transparent;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  &:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  .overlay {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    line-height: 1.5;
+    transition: transform 0.15s ease-in-out;
+  }
+  .overlay[data-valid="true"] {
+    transform: translate(-10%, -110%);
+  }
+  input:hover ~ .overlay,
+  input:focus ~ .overlay,
+  textarea:hover ~ .overlay,
+  textarea:focus ~ .overlay {
+    transform: translate(-10%, -100%);
+  }
+  .small {
+    font-size: var(--font-size-small);
+  }
+  .medium {
+    font-size: var(--font-size-medium);
+  }
+  .large {
+    font-size: var(--font-size-large);
+  }
+  .input {
+    display: block;
+    border: 2px solid var(--input-border);
+    border-radius: var(--input-border-radius);
+    padding: 0.3em;
+
+    &:focus {
+      outline: none;
+      border-color: var(--input-border-focus);
+    }
+    &:hover {
+      border-color: var(--input-border);
+    }
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .label--small {
+    font-size: var(--font-size-small);
+  }
+  .label--medium {
+    font-size: var(--font-size-medium);
+  }
+  .label--large {
+    font-size: var(--font-size-large);
+  }
+  .label--alert {
+    color: var(--color-alert);
+  }
+}
