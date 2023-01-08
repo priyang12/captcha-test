@@ -1,0 +1,29 @@
+.Button {
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: var(--font-size-medium);
+  text-align: center;
+  border-radius: var(--btn-radius);
+  background-color: var(--bg-third);
+  border: none;
+  padding: 1em;
+  z-index: 1;
+  svg {
+    width: var(--btn-icon-size);
+    height: var(--btn-icon-size);
+  }
+  &:disabled {
+    background-color: gray;
+  }
+}
+.Button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Button-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: flex-start;
+}

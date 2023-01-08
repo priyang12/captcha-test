@@ -23,6 +23,7 @@ export type FormControlProps = {
   check?: boolean;
   overlay?: boolean;
   Valid?: boolean;
+  ErrorMessage?: string;
 };
 
 function FormControl({
@@ -30,10 +31,15 @@ function FormControl({
   overlay,
   children,
   Valid = false,
+  ErrorMessage = "",
   ...restProps
 }: FormControlProps & React.ComponentPropsWithoutRef<"div">) {
   const [LabelCheck, setLabelCheck] = React.useState(Valid);
-  const [Alert, setAlert] = React.useState("");
+  const [Alert, setAlert] = React.useState(ErrorMessage);
+
+  React.useEffect(() => {
+    setAlert(ErrorMessage);
+  }, [ErrorMessage]);
 
   const inputChange = (
     e:
@@ -47,7 +53,8 @@ function FormControl({
       setAlert("");
     } else {
       setLabelCheck(false);
-      setAlert("Value is Required");
+      const Error = e.target.name ? e.target.name : "Value";
+      setAlert(ErrorMessage ? ErrorMessage : Error + " is Required");
     }
   };
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { clsx } from "clsx";
 import { FormControlContext } from "./FormControl";
+import { callAll } from "../../utils/callAll";
 
 /**
  * Props for the Input component
@@ -33,8 +34,8 @@ function Input({
     <input
       {...props}
       className={InputClass}
-      onChange={inputChange}
-      onFocus={onFocus}
+      onChange={callAll(props.onChange, props.required ? inputChange : null)}
+      onFocus={callAll(props.onFocus, onFocus)}
     />
   );
 }
