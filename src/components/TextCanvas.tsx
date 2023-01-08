@@ -12,6 +12,7 @@ function TextCanvas({
     const context = canvas?.getContext("2d") as CanvasRenderingContext2D;
     context?.clearRect(0, 0, canvas.width, canvas.height);
     context.font = "20px Arial";
+    context.fillStyle = "red";
     context.lineWidth = 2;
     context.fillText(Text, 10, 25);
     context.moveTo(10, 25);
