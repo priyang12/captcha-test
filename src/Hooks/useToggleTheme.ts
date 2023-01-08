@@ -1,7 +1,12 @@
 import React from "react";
 
 export const useToggleTheme = () => {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
+  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
+  console.log(darkModePreference.matches);
+
+  const [mode, setMode] = React.useState<"light" | "dark">(
+    darkModePreference.matches ? "dark" : "light"
+  );
 
   const toggleMode = () => {
     setMode(mode === "light" ? "dark" : "light");

@@ -17,7 +17,6 @@ function App() {
     Password: "",
     Password2: "",
   });
-  console.log(mode);
 
   const [ConfirmErrorMessage, setConfirmErrorMessage] = React.useState("");
   const [CaptchaInput, setCaptchaInput] = React.useState("");
@@ -51,9 +50,13 @@ function App() {
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
         <div className="Heading">
-          <MoonLogo className="logo" onClick={() => setMode("dark")} />
+          {mode === "light" ? (
+            <MoonLogo className="logo" onClick={() => setMode("dark")} />
+          ) : null}
           <h1>Sign Up at Ease</h1>
-          <SunLogo className="logo" onClick={() => setMode("light")} />
+          {mode === "dark" ? (
+            <SunLogo className="logo" onClick={() => setMode("light")} />
+          ) : null}
         </div>
         <FormControl overlay>
           <Label htmlFor="Username">Username</Label>
