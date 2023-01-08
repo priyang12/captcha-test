@@ -1,5 +1,4 @@
 import * as React from "react";
-import { clsx } from "clsx";
 import { FormControlContext } from "./FormControl";
 
 /**
@@ -26,18 +25,21 @@ export interface LabelProps {
 function Label(props: React.ComponentPropsWithoutRef<"label"> & LabelProps) {
   const { children, hidden, size, className, ...restProps } = props;
   const { Alert, LabelCheck, overlay } = React.useContext(FormControlContext);
-  const LabelClass = clsx(
-    "label",
-    LabelCheck && "active",
-    overlay && "overlay",
-    hidden ? "visually-hidden" : "show",
-    size && `label--${size}`,
-    Alert && `label--alert`,
-    className
-  );
 
   return (
-    <label className={LabelClass} {...restProps} data-valid={LabelCheck}>
+    <label
+      className={`
+    label
+    ${LabelCheck && "active"} 
+    ${overlay && "overlay"} 
+    ${hidden ? "visually-hidden" : "show"}
+    ${size && `label--${size}`}
+    ${Alert && `label--alert`}
+    ${className} 
+    `}
+      {...restProps}
+      data-valid={LabelCheck}
+    >
       {Alert ? Alert : children}
     </label>
   );

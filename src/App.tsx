@@ -1,11 +1,15 @@
 import React from "react";
 import TextCanvas from "./components/TextCanvas";
+import Button from "./components/Button";
 import { generateCaptchaText } from "./utils/generateCaptchaTest";
 import { FormControl, Input, Label } from "./components/FormControl";
+import { ReactComponent as SunLogo } from "./assets/sun.svg";
+import { ReactComponent as MoonLogo } from "./assets/moon.svg";
+import { useToggleTheme } from "./Hooks/useToggleTheme";
 import "./App.scss";
-import Button from "./components/Button";
 
 function App() {
+  const { mode, setMode } = useToggleTheme();
   const [captchaText, setCaptchaText] = React.useState(generateCaptchaText());
   const [UserData, setUserData] = React.useState({
     Username: "",
@@ -13,6 +17,7 @@ function App() {
     Password: "",
     Password2: "",
   });
+  console.log(mode);
 
   const [ConfirmErrorMessage, setConfirmErrorMessage] = React.useState("");
   const [CaptchaInput, setCaptchaInput] = React.useState("");
@@ -45,7 +50,11 @@ function App() {
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
-        <h1>Sign Up For at Ease</h1>
+        <div className="Heading">
+          <MoonLogo className="logo" onClick={() => setMode("dark")} />
+          <h1>Sign Up at Ease</h1>
+          <SunLogo className="logo" onClick={() => setMode("light")} />
+        </div>
         <FormControl overlay>
           <Label htmlFor="Username">Username</Label>
           <Input

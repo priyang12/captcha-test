@@ -1,5 +1,4 @@
 import * as React from "react";
-import { clsx } from "clsx";
 import { FormControlContext } from "./FormControl";
 import { callAll } from "../../utils/callAll";
 
@@ -28,12 +27,11 @@ function Input({
   ...props
 }: React.ComponentPropsWithoutRef<"input"> & InputProps) {
   const { Alert, onFocus, inputChange } = React.useContext(FormControlContext);
-  const InputClass = clsx("input", InputSize, Alert && "alert", className);
 
   return (
     <input
       {...props}
-      className={InputClass}
+      className={`input ${InputSize} ${Alert && "alert"} ${className}`}
       onChange={callAll(props.onChange, props.required ? inputChange : null)}
       onFocus={callAll(props.onFocus, onFocus)}
     />
