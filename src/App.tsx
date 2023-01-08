@@ -1,33 +1,50 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import React from "react";
+import { generateCaptchaText } from "./utils/generateCaptchaTest";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [captchaText, setCaptchaText] = React.useState("");
+  const [userInput, setUserInput] = React.useState("");
+  const [isHuman, setIsHuman] = React.useState<boolean>();
+
+  React.useEffect(() => {
+    const Text = generateCaptchaText();
+    setCaptchaText(Text);
+    drawCaptcha(Text);
+  }, []);
+
+  const drawCaptcha = (Text: string) => {
+    const canvas = document.getElementById("captcha") as any;
+    const context = canvas?.getContext("2d");
+    context.font = "20px Arial";
+    context.fillText(Text, 10, 25);
+  };
+
+  const handleSubmit: React.ComponentPropsWithoutRef<"form">["onSubmit"] = (
+    event
+  ) => {
+    event.preventDefault();
+    if (userInput.toLowerCase() === captchaText.toLowerCase()) {
+      setIsHuman(true);
+    } else {
+      setIsHuman(false);
+    }
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <canvas id="captcha" width="100" height="30"></canvas>
+      <input
+        type="text"
+        value={userInput}
+        onChange={(event) => setUserInput(event.target.value)}
+      />
+      <button type="submit">Submit</button>
+      {isHuman === true && <p>Thank you for verifying that you are human!</p>}
+      {isHuman === false && (
+        <p>The CAPTCHA response was incorrect. Please try again.</p>
+      )}
+    </form>
   );
 }
 
